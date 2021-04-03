@@ -9,21 +9,16 @@
         $(document).ready(function() {
             $("button").click(function() {
                 $.ajax({
+                    type: 'POST',
                     url: url,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                    crossDomain: true,
+                    data: '{"some":"json"}',
+                    dataType: 'json',
+                    success: function(responseData, textStatus, jqXHR) {
+                        var value = responseData.someKey;
                     },
-                    type: "POST",
-                    /* or type:"GET" or type:"PUT" */
-                    dataType: "json",
-                    data: {},
-                    success: function(result) {
-                        document.getElementById("demo").innerHTML =
-                            "Data: " + data + "\nStatus: " + status;
-
-                    },
-                    error: function() {
-                        document.getElementById("demo").innerHTML = "error";
+                    error: function(responseData, textStatus, errorThrown) {
+                        alert('POST failed.');
                     }
                 });
             });
