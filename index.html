@@ -2,25 +2,36 @@
 <html>
 
 <head>
- </head>
-
-<body>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         url = "https://script.google.com/macros/s/AKfycbxZ0md3Wn4-T9853c75hyANL4kBcdM_FhXoO-uDv2kPRsIoGbg/exec";
+
         $(document).ready(function() {
             $("button").click(function() {
-                $.post(url, {
-                        name: "Donald Duck",
-                        city: "Duckburg"
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    function(data, status) {
+                    type: "POST",
+                    /* or type:"GET" or type:"PUT" */
+                    dataType: "json",
+                    data: {},
+                    success: function(result) {
                         document.getElementById("demo").innerHTML =
                             "Data: " + data + "\nStatus: " + status;
-                    });
+
+                    },
+                    error: function() {
+                        document.getElementById("demo").innerHTML = "error";
+                    }
+                });
             });
         });
     </script>
+</head>
+
+<body>
 
     <button>Xonnect to app-script</button>
     <p id="demo">Click the button to change the text in this paragraph.</p>
